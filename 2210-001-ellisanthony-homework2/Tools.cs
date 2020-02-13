@@ -9,49 +9,66 @@ namespace _2210_001_ellisanthony_homework2
        
          public static String[] Tokenize(string line, string delims)
         {
-
+            
             Tokens Tokens = new Tokens();
-            int EndOfLine = line.Length;
-            int CurrentPosition = 0;
-            while (CurrentPosition < EndOfLine)
+            int delimPosition;
+            while (line.Contains(delims))
             {
+                delimPosition = line.IndexOf(delims[0])+1;
+                Tokens.AddToken(line.Substring(0, delimPosition));
+                line = line.Substring(delimPosition, line.Length - delimPosition);
                 
+            }
+            Tokens.AddToken(line);
+            return Tokens.GetTokens();
+        }
+        public static void TokenizeRecursive(Tokens tokens, String line, String Delimiters)
+        {
+            if (Delimiters == "")
+            {
+                tokens.AddToken(line);
+                return;
+            }
+            String Delimiter=Delimiters.Substring(0, 1);
+            int DelimiterIndex = line.IndexOf(Delimiter);
+            String NewDelimiters = Delimiter.Substring(1);
+
+
+        }
+
+        public static void setup()
+        {
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Clear();
+            Console.Title = "CSCI 2210 - Data Structures: Homework 2 by Anthony Ellis";
+            
+        }
+
+        public static void display(String[] tokens)
+        {
+            for (int i = 0; i<tokens.Length && tokens[i] != null; i++)
+            {
+                Console.WriteLine("{0}. {1}", i + 1, tokens[i]);
 
             }
-            return Tokens.GetTokens();
         }
         
     }
     class Tokens
     {
-        String[] tokens;
-        int Curr;
+        List<String> tokens;
         public Tokens()
         {
-            tokens = new string[10];
-            Curr = 0;
+            tokens = new List<String>();
         }
         public String[] GetTokens()
         {
-            return tokens;
+            return tokens.ToArray();
         }
         public void AddToken(String NewToken)
         {
-            if (Curr == tokens.Length - 1)
-            {
-                resize();
-            }
-            tokens[Curr] = NewToken;
-            Curr++;
-        }
-        private void resize()
-        {
-            String[] temp = new string[tokens.Length * 2];
-            int TempCurr = 0;
-            foreach(String token in tokens){
-                temp[TempCurr] = token;
-            }
-            tokens = temp;
+            tokens.Add(NewToken);
         }
     }
 }

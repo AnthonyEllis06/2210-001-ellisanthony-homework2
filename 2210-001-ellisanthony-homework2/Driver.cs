@@ -7,10 +7,17 @@ namespace _2210_001_ellisanthony_homework2
     class Driver
     {
         public Driver()
-        {
-            string input = "this is my sample string! to!be!used/here";
-            string delims = "!/";
-            Tools.Tokenize(input, delims);
+        { 
+            string delims = " ";
+            Tools.setup();
+            string input = " ";
+            while (input != "q")
+            {
+                input = Console.ReadLine();
+                String[] tokens = Tools.Tokenize(input, delims);
+                Tools.display(tokens);
+            }
+
         }
     }
 }
