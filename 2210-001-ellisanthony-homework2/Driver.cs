@@ -8,8 +8,8 @@ namespace _2210_001_ellisanthony_homework2
     {
         public Driver()
         { 
-            string delims = " ";
-            Tools.setup();
+            string delims = " !#2";
+            //Tools.setup();
             string input = " ";
             while (input != "q")
             {

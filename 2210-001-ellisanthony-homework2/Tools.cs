@@ -7,33 +7,50 @@ namespace _2210_001_ellisanthony_homework2
     class Tools
     {
        
-         public static String[] Tokenize(string line, string delims)
+        public static String[] Tokenize(string line, string delims)
         {
             
             Tokens Tokens = new Tokens();
-            int delimPosition;
-            while (line.Contains(delims))
+            int NumDelims = delims.Length-1;
+            int delimPosition=0;
+            int currDelimPosition;
+            bool eol = false;
+            while (!eol)
             {
-                delimPosition = line.IndexOf(delims[0])+1;
-                Tokens.AddToken(line.Substring(0, delimPosition));
+                
+                currDelimPosition = line.Length;
+                delimPosition = currDelimPosition;
+                for (int i = 0; i <= NumDelims; i++)
+                {
+                    currDelimPosition = line.Length;
+                    if (line.Contains(delims[i]))
+                    {
+                        currDelimPosition = line.IndexOf(delims[i]);
+                        eol = false;
+                        
+                    }
+                    else
+                    {
+                        eol = true;
+                    }
+                    if (currDelimPosition < delimPosition)
+                            delimPosition = currDelimPosition;
+                    
+                }
+                
+                Tokens.AddToken(line.Substring(0, delimPosition).Trim());
                 line = line.Substring(delimPosition, line.Length - delimPosition);
+                
+                if(line[0].ToString() != " ")
+                {
+                    Tokens.AddToken(line[0].ToString());
+                }
+                line.Trim();
+                line = line.Substring(1);
                 
             }
             Tokens.AddToken(line);
             return Tokens.GetTokens();
-        }
-        public static void TokenizeRecursive(Tokens tokens, String line, String Delimiters)
-        {
-            if (Delimiters == "")
-            {
-                tokens.AddToken(line);
-                return;
-            }
-            String Delimiter=Delimiters.Substring(0, 1);
-            int DelimiterIndex = line.IndexOf(Delimiter);
-            String NewDelimiters = Delimiter.Substring(1);
-
-
         }
 
         public static void setup()
